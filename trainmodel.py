@@ -8,10 +8,14 @@ label_map = {label:num for num, label in enumerate(actions)}
 # print(label_map)
 sequences, labels = [], []
 for action in actions:
+    print("1")
     for sequence in range(no_sequences):
-        window = []
+        window = []   
+        
         for frame_num in range(sequence_length):
             res = np.load(os.path.join(DATA_PATH, action, str(sequence), "{}.npy".format(frame_num)))
+            print(f"Processing action: {action}, sequence: {sequence}, frame: {frame_num}")
+
             window.append(res)
         sequences.append(window)
         labels.append(label_map[action])
