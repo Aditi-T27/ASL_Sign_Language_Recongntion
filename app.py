@@ -84,9 +84,19 @@ with mp_hands.Hands(
             # print(e)
             pass
             
-        cv2.rectangle(frame, (0,0), (300, 40), (245, 117, 16), -1)
-        cv2.putText(frame,"Output: -"+' '.join(sentence)+''.join(accuracy), (3,30), 
-                       cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        # Draw rectangle for alphabet (at the top)
+        cv2.rectangle(frame, (0, 0), (300, 40), (245, 117, 16), -1)
+
+# Print only the alphabet (sentence) at the top
+        cv2.putText(frame, "Output: " + ' '.join(sentence), (3, 30),
+            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+# Draw blue rectangle for accuracy at the bottom
+        cv2.rectangle(frame, (0, frame.shape[0] - 40), (300, frame.shape[0]), (255, 0, 0), -1)
+
+# Print the accuracy percentage at the bottom with a blue background
+        cv2.putText(frame, "Accuracy: " + ''.join(accuracy) + '%', (3, frame.shape[0] - 10),
+            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         
         # Show to screen
         cv2.imshow('OpenCV Feed', frame)

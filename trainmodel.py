@@ -25,8 +25,12 @@ y = to_categorical(labels).astype(int)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05)
 
 log_dir = os.path.join('Logs')
+
 tb_callback = TensorBoard(log_dir=log_dir)
+# Sequential() is a container where layers are added in sequence. The output of one layer becomes the input for the next.
 model = Sequential()
+# Uses ReLU (Rectified Linear Unit
+# input shape with 30 time steps and 63 features per step.
 model.add(LSTM(64, return_sequences=True, activation='relu', input_shape=(30,63)))
 model.add(LSTM(128, return_sequences=True, activation='relu'))
 model.add(LSTM(64, return_sequences=False, activation='relu'))
@@ -35,6 +39,7 @@ model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))
 res = [.7, 0.2, 0.1]
 
+# Uses the Adam optimization algorithm for gradient descent.
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 model.fit(X_train, y_train, epochs=200, callbacks=[tb_callback])
 model.summary()
